@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfólio Diretoria Executiva – FMP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    #fmp-landing {
+      position: relative;
+      width: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: #fff;
+    }
+
+    #fmp-landing .fmp-section {
+      min-height: 100vh;
+      padding: 60px 8vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    #fmp-landing .hero {
+    background: 
+        linear-gradient(135deg, rgba(140,38,38,0.82), rgba(115,31,31,0.82)),
+        url('background.jpg') center/cover no-repeat;
+    color: #fff;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    }
+
+    .hero-logo {
+      height: 52px;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+    }
+
+    #fmp-landing .hero-title {
+      font-size: 3rem;
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    #fmp-landing .hero-subtitle {
+      font-size: 1.125rem;
+      max-width: 640px;
+      opacity: .92;
+    }
+
+    #fmp-landing .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(242, 223, 187, 0.12);
+      border: 1px solid rgba(242, 223, 187, 0.4);
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      margin-bottom: 18px;
+    }
+
+    #fmp-landing .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #F2DFBB;
+    }
+
+    #fmp-landing .hero-overlay-circle {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      border: 1px solid rgba(242, 223, 187, 0.12);
+      right: -120px;
+      top: 18%;
+    }
+
+    #fmp-landing .hero-overlay-circle::after {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      border: 1px dashed rgba(242, 223, 187, 0.18);
+    }
+
+    #fmp-landing .hero-highlight-card {
+      position: absolute;
+      right: 12vw;
+      bottom: 18%;
+      max-width: 280px;
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(242, 223, 187, 0.35);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+      font-size: .9rem;
+    }
+
+    #fmp-landing .hero-highlight-title {
+      font-size: .85rem;
+      opacity: .85;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      margin-bottom: 4px;
+    }
+
+    #fmp-landing .hero-highlight-main {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+    }
+
+    #fmp-landing .hero-highlight-pill {
+      font-size: .78rem;
+      opacity: .85;
+    }
+
+    #fmp-landing .scroll-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      opacity: .9;
+    }
+
+    #fmp-landing .scroll-dot {
+      width: 18px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #fmp-landing .scroll-dot::after {
+      content: '';
+      width: 4px;
+      height: 8px;
+      border-radius: 999px;
+      background: #fff;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: fmp-scroll 1.4s infinite;
+    }
+
+    @keyframes fmp-scroll {
+      0% { opacity: 0; transform: translate(-50%, 0); }
+      40% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, 10px); }
+    }
+
+    #fmp-landing .section-title {
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    #fmp-landing .section-subtitle {
+      font-size: .95rem;
+      opacity: .7;
+      max-width: 520px;
+      margin-bottom: 34px;
+    }
+
+    #fmp-landing .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    #fmp-landing .card {
+      flex: 1 1 260px;
+      max-width: 320px;
+      border-radius: 20px;
+      padding: 22px 20px 20px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #fmp-landing .card-completed {
+      background: linear-gradient(135deg, #8c2626, #731f1f);
+      color: #fff;
+    }
+
+    #fmp-landing .card-pending {
+      background: #f5f5f5;
+      color: #333;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    #fmp-landing .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    #fmp-landing .card-completed .card-icon {
+      background: rgba(242, 223, 187, 0.12);
+      border: 1px solid rgba(242, 223, 187, 0.55);
+    }
+
+    #fmp-landing .card-pending .card-icon {
+      background: #e6e6e6;
+      border: 1px solid #d4d4d4;
+    }
+
+    #fmp-landing .card-title {
+      font-size: 1.25rem;
+      font-weight: 300;
+    }
+
+    #fmp-landing .card-badge {
+      font-size: .73rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      opacity: .85;
+    }
+
+    #fmp-landing .card-description {
+      font-size: .9rem;
+      opacity: .9;
+    }
+
+    #fmp-landing .card-footer {
+      margin-top: 10px;
+      font-size: .8rem;
+      opacity: .78;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    #fmp-landing .status-pill {
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: .75rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    #fmp-landing .status-pill-muted {
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: .75rem;
+      background: #dedede;
+      color: #444;
+    }
+
+    #fmp-landing .side-nav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 99;
+    }
+
+    #fmp-landing .side-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: .8rem;
+      color: #777;
+      font-weight: 400;
+    }
+
+    #fmp-landing .side-nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid #bbb;
+      background: #fff;
+      transition: all .2s ease;
+    }
+
+    #fmp-landing .side-nav-item.active .side-nav-dot {
+      background: #8c2626;
+      border-color: #8c2626;
+      transform: scale(1.2);
+    }
+
+    #fmp-landing .side-nav-item.active span {
+      color: #8c2626;
+    }
+
+    #fmp-landing .closing {
+      background: #F2DFBB;
+      color: #1f1f1f;
+    }
+
+    #fmp-landing .closing-inner {
+      max-width: 760px;
+    }
+
+    #fmp-landing .closing-tag {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: #8c2626;
+      margin-bottom: 10px;
+    }
+
+    #fmp-landing .closing-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(115, 31, 31, 0.25);
+      font-size: .78rem;
+      margin-top: 8px;
+    }
+
+    #fmp-landing .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    #fmp-landing .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      #fmp-landing .hero-title {
+        font-size: 2.4rem;
+      }
+
+      #fmp-landing .hero-overlay-circle,
+      #fmp-landing .hero-highlight-card {
+        display: none;
+      }
+
+      #fmp-landing .fmp-section {
+        padding: 48px 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #fmp-landing .side-nav {
+        display: none;
+      }
+
+      #fmp-landing .cards-grid {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div id="fmp-landing">
+
+  <nav class="side-nav">
+    <div class="side-nav-item active" data-target="#slide-hero">
+      <div class="side-nav-dot"></div><span>Início</span>
+    </div>
+    <div class="side-nav-item" data-target="#slide-dev">
+      <div class="side-nav-dot"></div><span>Desenvolvidos</span>
+    </div>
+    <div class="side-nav-item" data-target="#slide-progress">
+      <div class="side-nav-dot"></div><span>Em andamento</span>
+    </div>
+    <div class="side-nav-item" data-target="#slide-closing">
+      <div class="side-nav-dot"></div><span>Encerramento</span>
+    </div>
+  </nav>
+
+  <section id="slide-hero" class="fmp-section hero fade-up">
+    <div>
+      <img src="logo.svg" class="hero-logo" alt="Logo FMP">
+      <h1 class="hero-title">
+        Portfólio de Projetos<br>Fundação Escola Superior do Ministério Público
+      </h1>
+      <p class="hero-subtitle">
+        Uma visão em apresentação dos projetos desenvolvidos e em andamento na Diretoria Executiva da FMP,
+        com foco em inovação, experiência acadêmica e governança institucional.
+      </p>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-dot"></div>
+      <span>Role para avançar</span>
+    </div>
+  </section>
+
+  <section id="slide-dev" class="fmp-section fade-up" style="background:#F2DFBB;">
+    <div>
+      <h2 class="section-title" style="color:#731f1f;">Projetos desenvolvidos</h2>
+      <p class="section-subtitle" style="color:#4a3526;">
+        Soluções já implantadas, em uso pela comunidade acadêmica e administrativa, com resultados
+        concretos em engajamento, transparência e tomada de decisão.
+      </p>
+
+      <div class="cards-grid">
+        <article class="card card-completed">
+          <div class="card-icon">⚖️</div>
+          <div class="card-badge">Projeto concluído</div>
+          <h3 class="card-title">Júri Simulado</h3>
+          <p class="card-description">
+            Plataforma digital de votação e gerenciamento de Júris Simulados, permitindo
+            experiências práticas mais organizadas, transparentes e imersivas.
+          </p>
+          <div class="card-footer">
+            <span class="status-pill">Em uso pelos cursos de Direito</span>
+            <span>Votação segura • Painel em tempo real</span>
+          </div>
+        </article>
+
+        <article class="card card-completed">
+          <div class="card-icon">📊</div>
+          <div class="card-badge">Projeto concluído</div>
+          <h3 class="card-title">FMP Insights</h3>
+          <p class="card-description">
+            Sistema institucional de avaliação e Business Intelligence, com dashboards, NPS e
+            análises avançadas para apoiar decisões acadêmicas e de gestão.
+          </p>
+          <div class="card-footer">
+            <span class="status-pill">Avaliações e BI institucional</span>
+            <span>Indicadores • Clima • NPS</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="slide-progress" class="fmp-section fade-up" style="background:#ffffff;">
+    <div>
+      <h2 class="section-title" style="color:#731f1f;">Projetos em andamento</h2>
+      <p class="section-subtitle" style="color:#555;">
+        Iniciativas em desenvolvimento, alinhadas à estratégia institucional da FMP,
+        com foco em automação de processos, atendimento inteligente e eficiência operacional.
+      </p>
+
+      <div class="cards-grid">
+        <article class="card card-pending">
+          <div class="card-icon">🤖</div>
+          <div class="card-badge">Em desenvolvimento</div>
+          <h3 class="card-title">Agente de IA</h3>
+          <p class="card-description">
+            Agente inteligente integrado a canais como WhatsApp e voz, para apoiar atendimento,
+            orientações acadêmicas e automatização de interações com estudantes e comunidade.
+          </p>
+          <div class="card-footer">
+            <span class="status-pill-muted">Fase: prototipação e integrações</span>
+            <span>IA assistiva • Multicanal</span>
+          </div>
+        </article>
+
+        <article class="card card-pending">
+          <div class="card-icon">🔁</div>
+          <div class="card-badge">Em desenvolvimento</div>
+          <h3 class="card-title">FMP BPM</h3>
+          <p class="card-description">
+            Plataforma de Business Process Management para mapear, padronizar e automatizar
+            fluxos internos, integrando setores e tornando processos mais rastreáveis e ágeis.
+          </p>
+          <div class="card-footer">
+            <span class="status-pill-muted">Fase: desenho de fluxos e estrutura</span>
+            <span>Automação • Governança de processos</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="slide-closing" class="fmp-section closing fade-up">
+    <div class="closing-inner">
+      <div class="closing-tag">Portfólio institucional</div>
+      <h2 class="section-title" style="color:#1f1f1f;">
+        Diretoria Executiva FMP — tecnologia a serviço da missão institucional
+      </h2>
+      <p class="section-subtitle" style="color:#3b2c1c;">
+        Esta versão consolida o portfólio de soluções digitais conduzidas pela Diretoria Executiva
+        da Fundação Escola Superior do Ministério Público, destacando iniciativas que fortalecem
+        a experiência acadêmica, a gestão e a transparência de dados.
+      </p>
+
+      <div class="closing-pill">
+        <span>📎</span>
+        <span>Documento de referência institucional para comunicados, relatórios e apresentações da Diretoria Executiva.</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function() {
+    const root = document.getElementById('fmp-landing');
+    if (!root) return;
+
+    const animated = root.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.25 });
+
+    animated.forEach(el => observer.observe(el));
+
+    const navItems = root.querySelectorAll('.side-nav-item');
+    const sections = [
+      '#slide-hero',
+      '#slide-dev',
+      '#slide-progress',
+      '#slide-closing'
+    ].map(sel => root.querySelector(sel)).filter(Boolean);
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetSelector = item.getAttribute('data-target');
+        const target = root.querySelector(targetSelector);
+        if (target) {
+          const rect = target.getBoundingClientRect();
+          const absoluteTop = window.pageYOffset + rect.top;
+          window.scrollTo({ top: absoluteTop, behavior: 'smooth' });
+        }
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = '#' + entry.target.id;
+        navItems.forEach(item => {
+          const t = item.getAttribute('data-target');
+          item.classList.toggle('active', t === id);
+        });
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(sec => sectionObserver.observe(sec));
+  })();
+</script>
+</body>
+</html>
