@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>FMP Insights – Detalhamento do Projeto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --wine-dark: #731f1f;
+      --wine: #8c2626;
+      --sand: #F2DFBB;
+      --light: #ffffff;
+      --text-dark: #1f1f1f;
+      --muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--light);
+      color: var(--text-dark);
+    }
+
+    .page-root {
+      min-height: 100vh;
+      background: #f9fafb;
+    }
+
+    .section {
+      padding: 72px min(9vw, 120px);
+    }
+
+    .section-narrow {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 90vh;
+      padding: 80px min(9vw, 120px) 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(140,38,38,0.84), rgba(115,31,31,0.9)),
+        url('background-insights.jpg') center/cover no-repeat;
+      color: var(--light);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+      max-width: 1180px;
+      width: 100%;
+    }
+
+    .hero-logo {
+      height: 52px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35));
+    }
+
+    .hero-kicker {
+      font-size: .8rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .9;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 3.2vw, 3.1rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin: 0 0 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.02rem;
+      max-width: 520px;
+      opacity: .94;
+      margin: 0 0 24px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-tag {
+      font-size: .8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,223,187,0.6);
+      background: rgba(15,23,42,0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      padding: 20px 20px 18px;
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(242,223,187,0.32);
+      box-shadow: 0 20px 55px rgba(0,0,0,0.55);
+    }
+
+    .hero-card-title {
+      font-size: .85rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .85;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-metrics {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: .85rem;
+      opacity: .92;
+      flex-wrap: wrap;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(248,250,252,0.25);
+      font-size: .78rem;
+    }
+
+    .section-kicker {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--wine);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 300;
+      margin: 0 0 10px;
+    }
+
+    .section-subtitle {
+      font-size: .95rem;
+      color: var(--muted);
+      margin: 0 0 26px;
+      max-width: 620px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: .8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .feature-card {
+      padding: 14px 14px 13px;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.07);
+      font-size: .9rem;
+    }
+
+    .feature-label {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--wine-dark);
+      margin-bottom: 4px;
+    }
+
+    .feature-title {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .feature-text {
+      font-size: .88rem;
+      color: #4b5563;
+    }
+
+    .architecture-strip {
+      margin-top: 28px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(140,38,38,0.04), rgba(115,31,31,0.08));
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      font-size: .88rem;
+    }
+
+    .arch-block-title {
+      font-size: .84rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--wine-dark);
+      margin-bottom: 6px;
+    }
+
+    .arch-block-text {
+      color: #374151;
+    }
+
+    .modules-section {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .modules-header {
+      margin-bottom: 28px;
+    }
+
+    .module-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .module {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .module.reverse {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.15fr);
+    }
+
+    .module.reverse .module-text {
+      order: 2;
+    }
+
+    .module.reverse .module-visual {
+      order: 1;
+    }
+
+    .module-kicker {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--wine);
+      margin-bottom: 6px;
+    }
+
+    .module-title {
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin: 0 0 8px;
+    }
+
+    .module-text p {
+      margin: 0 0 10px;
+      font-size: .93rem;
+      color: #374151;
+    }
+
+    .module-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .module-tag {
+      font-size: .78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .screenshot-frame {
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, #e5e7eb 0, #d1d5db 45%, #9ca3af 100%);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.18);
+      padding: 14px 14px 10px;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screenshot-chrome {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: .78rem;
+      color: #374151;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #ef4444;
+    }
+
+    .dot.dot-yellow {
+      background: #f59e0b;
+    }
+
+    .dot.dot-green {
+      background: #22c55e;
+    }
+
+    .screenshot-inner {
+      flex: 1;
+      border-radius: 12px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screenshot-placeholder-text {
+      font-size: .86rem;
+      color: #e5e7eb;
+      opacity: .9;
+      text-align: center;
+      padding: 0 18px;
+    }
+
+    .screenshot-note {
+      font-size: .78rem;
+      color: #374151;
+      margin-top: 6px;
+    }
+
+    .screenshot-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .closing {
+      background: var(--sand);
+      border-top: 1px solid rgba(148,163,184,0.35);
+    }
+
+    .closing-main {
+      font-size: .95rem;
+      color: #3b2c1c;
+      margin-bottom: 16px;
+    }
+
+    .closing-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      font-size: .9rem;
+      color: #3b2c1c;
+    }
+
+    .closing-list li {
+      margin-bottom: 6px;
+    }
+
+    .closing-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(115,31,31,0.32);
+      font-size: .8rem;
+      color: #3b2c1c;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .image-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .image-modal-overlay.open {
+      display: flex;
+    }
+
+    .image-modal-content {
+      max-width: 96vw;
+      max-height: 92vh;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+    }
+
+    .image-modal-content img {
+      display: block;
+      max-width: 100%;
+      max-height: 92vh;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(248,250,252,0.6);
+      background: rgba(15,23,42,0.7);
+      color: #f9fafb;
+      font-size: 16px;
+      line-height: 26px;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 72px;
+      }
+
+      .hero-card {
+        margin-top: 10px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .architecture-strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .module,
+      .module.reverse {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .module-text,
+      .module-visual {
+        order: unset !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .section,
+      .hero {
+        padding: 64px 20px;
+      }
+
+      .feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page-root">
+
+  <section class="hero fade-up" style="position:relative;">
+
+    <a href="index.html"
+        style="
+        position:absolute;
+        top:24px;
+        left:24px;
+        padding:8px 14px;
+        font-size:.82rem;
+        text-decoration:none;
+        color:#fff;
+        background:rgba(0,0,0,0.35);
+        border:1px solid rgba(255,255,255,0.32);
+        border-radius:10px;
+        backdrop-filter:blur(6px);
+        z-index:50;
+        transition:.2s ease;
+        "
+        onmouseover="this.style.background='rgba(0,0,0,0.55)'"
+        onmouseout="this.style.background='rgba(0,0,0,0.35)'">
+        ← Voltar ao início
+    </a>
+
+    <div class="hero-grid">
+        <div>
+        <img src="logo.svg" alt="Logo FMP" class="hero-logo">
+        <div class="hero-kicker">Plataforma de avaliação e BI institucional</div>
+        <h1 class="hero-title">FMP Insights</h1>
+        <p class="hero-subtitle">
+            Sistema que integra avaliações institucionais, clima acadêmico e indicadores de desempenho
+            em uma plataforma única de Business Intelligence para a Fundação Escola Superior
+            do Ministério Público.
+        </p>
+        <div class="hero-tags">
+            <span class="hero-tag">Avaliação institucional e disciplinar</span>
+            <span class="hero-tag">Dashboards e NPS</span>
+            <span class="hero-tag">Estrutura acadêmica integrada</span>
+        </div>
+        </div>
+
+        <div>
+        <div class="hero-card">
+            <div class="hero-card-title">Visão executiva</div>
+            <p style="font-size:.9rem; margin:0 0 8px;">
+            Esta página detalha os principais módulos do FMP Insights, com espaço para capturas de tela
+            e explicações que apoiam apresentações para conselhos, coordenações e equipes técnicas.
+            </p>
+            <div class="hero-card-metrics">
+            <span class="metric-pill">Avaliações PROAVI IES e Disciplinas</span>
+            <span class="metric-pill">Dashboards por curso, área e nível</span>
+            <span class="metric-pill">Análises qualitativas com apoio de IA</span>
+            </div>
+        </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <div class="section-narrow">
+      <div class="section-kicker">Contexto do projeto</div>
+      <h2 class="section-title">Visão geral do FMP Insights</h2>
+      <p class="section-subtitle">
+        O FMP Insights foi concebido como a camada central de avaliação e inteligência institucional da FMP,
+        conectando dados de respondentes, cursos, áreas e instrumentos de avaliação em um ambiente único.
+      </p>
+
+      <p style="font-size:.94rem; color:#374151; margin-bottom:12px;">
+        Ao combinar dados quantitativos (escalas, NPS) e qualitativos (comentários), o sistema oferece
+        uma visão estruturada do clima institucional, permitindo acompanhar tendências, identificar
+        pontos de atenção e registrar a evolução das ações implementadas.
+      </p>
+
+      <div class="pill-row">
+        <span class="pill">Instrumentos configuráveis</span>
+        <span class="pill">Integração com estrutura acadêmica</span>
+        <span class="pill">Filtros por período, curso, área e nível</span>
+        <span class="pill">Relatórios exportáveis</span>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-label">Camada 01</div>
+          <div class="feature-title">Coleta de respostas</div>
+          <div class="feature-text">
+            Instrumentos de avaliação institucional e por disciplina, com escalas, NPS e campos
+            abertos para comentários.
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label">Camada 02</div>
+          <div class="feature-title">Tratamento e agregação</div>
+          <div class="feature-text">
+            Organização das respostas com base em cursos, áreas, níveis, turnos e perfis de respondentes.
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label">Camada 03</div>
+          <div class="feature-title">Visualização e análise</div>
+          <div class="feature-text">
+            Dashboards consolidados, indicadores-chave, comparações entre períodos e leitura
+            qualitativa assistida por IA.
+          </div>
+        </div>
+      </div>
+
+      <div class="architecture-strip">
+        <div>
+          <div class="arch-block-title">Front-end</div>
+          <div class="arch-block-text">
+            Interface em PHP com layout responsivo, cards, dashboards e formulários otimizados para
+            diferentes perfis de usuários.
+          </div>
+        </div>
+        <div>
+          <div class="arch-block-title">Back-end</div>
+          <div class="arch-block-text">
+            Camada de negócio responsável por avaliações, estrutura acadêmica, respondentes,
+            cálculos de indicadores e geração de relatórios.
+          </div>
+        </div>
+        <div>
+          <div class="arch-block-title">Dados e integrações</div>
+          <div class="arch-block-text">
+            Base de dados estruturada por cursos, áreas, níveis e setores, com possibilidade de
+            integração futura com outros sistemas acadêmicos.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section modules-section fade-up">
+    <div class="section-narrow">
+      <div class="modules-header">
+        <div class="section-kicker">Módulos principais</div>
+        <h2 class="section-title">Detalhamento por módulo</h2>
+        <p class="section-subtitle">
+          A seguir, cada módulo do FMP Insights é apresentado com espaço dedicado para capturas de tela
+          e descrição de funcionalidades, facilitando o uso deste material em apresentações.
+        </p>
+      </div>
+
+      <div class="module-list">
+
+        <div class="module">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 01</div>
+            <h3 class="module-title">Painel executivo e visão geral</h3>
+            <p>
+              Visão consolidada dos principais indicadores de avaliação, com destaque para NPS,
+              médias por dimensão avaliativa e distribuição das respostas ao longo do período observado.
+            </p>
+            <p>
+              Ideal para apresentações em reuniões de gestão e conselhos, permite navegar entre recortes
+              por curso, nível, área e período de aplicação.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Indicadores agregados</span>
+              <span class="module-tag">Filtros dinâmicos</span>
+              <span class="module-tag">Resumo por período</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Painel executivo – visão geral</span>
+              </div>
+              <div class="screenshot-inner">
+                <img src="img/1.png" alt="Dashboard principal do FMP Insights" style="width:100%; margin-top:8px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reverse">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 02</div>
+            <h3 class="module-title">Avaliações institucionais (PROAVI IES)</h3>
+            <p>
+              Módulo dedicado às avaliações institucionais, como o PROAVI IES, permitindo acompanhar
+              dimensões específicas, níveis de satisfação e comentários dos estudantes sobre a instituição.
+            </p>
+            <p>
+              Organiza os resultados por período, curso, turno e outros recortes relevantes para a CPA
+              e demais instâncias de governança.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Avaliação institucional</span>
+              <span class="module-tag">Dimensões e indicadores</span>
+              <span class="module-tag">Relatórios para CPA</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>PROAVI IES – resultados por dimensão</span>
+              </div>
+              <div class="screenshot-inner">
+                <div class="screenshot-placeholder-text">
+                  <img src="img/2.png" alt="Resultados PROAVI IES por dimensão" style="width:100%; margin-top:8px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 03</div>
+            <h3 class="module-title">Avaliações por disciplina e docente</h3>
+            <p>
+              Focado nas avaliações de disciplinas, turmas e docentes, este módulo permite visualizar
+              o desempenho por componente curricular e professor, com filtros por curso, turno e período.
+            </p>
+            <p>
+              É uma ferramenta importante para coordenações de curso e núcleos pedagógicos, apoiando
+              diálogos qualificados com o corpo docente.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Resultados por disciplina</span>
+              <span class="module-tag">Visão por docente</span>
+              <span class="module-tag">Recortes por turma</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Avaliações por disciplina e docente</span>
+              </div>
+              <div class="screenshot-inner">
+                <div class="screenshot-placeholder-text">
+                  <img src="img/3.png" alt="Visão de avaliações por disciplina e docente" style="width:100%; margin-top:8px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reverse">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 04</div>
+            <h3 class="module-title">Estrutura acadêmica e cadastros</h3>
+            <p>
+              Consolida o cadastro de áreas, cursos, níveis, setores e demais elementos da estrutura
+              acadêmica, garantindo coerência entre os dados de avaliação e a organização institucional.
+            </p>
+            <p>
+              A partir desta base, o sistema consegue gerar recortes confiáveis e relatórios alinhados
+              à realidade da FMP.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Áreas e cursos</span>
+              <span class="module-tag">Níveis e setores</span>
+              <span class="module-tag">Coerência de dados</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Cadastros da estrutura acadêmica</span>
+              </div>
+              <div class="screenshot-inner">
+                <div class="screenshot-placeholder-text">
+                  <img src="img/4.png" alt="Cadastros da estrutura acadêmica no FMP Insights" style="width:100%; margin-top:8px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 05</div>
+            <h3 class="module-title">Banco de questões e modelos de avaliação</h3>
+            <p>
+              Repositório central de questões, blocos de itens e modelos de formulários,
+              facilitando a criação e manutenção de diferentes tipos de avaliação.
+            </p>
+            <p>
+              Permite reaproveitar instrumentos, manter consistência entre ciclos avaliativos
+              e documentar a evolução dos questionários.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Banco de questões</span>
+              <span class="module-tag">Modelos reutilizáveis</span>
+              <span class="module-tag">Histórico de instrumentos</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Banco de questões e modelos</span>
+              </div>
+              <div class="screenshot-inner">
+                <div class="screenshot-placeholder-text">
+                  <img src="img/5.png" alt="Banco de questões e modelos de avaliação" style="width:100%; margin-top:8px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reverse">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 06</div>
+            <h3 class="module-title">Motor de análises com IA e leitura de comentários</h3>
+            <p>
+              Módulo dedicado à leitura qualitativa dos comentários abertos, identificando temas recorrentes,
+              sentimentos predominantes e sugestões mais frequentes dos respondentes.
+            </p>
+            <p>
+              Complementa a análise numérica, fornecendo insumos para relatórios narrativos,
+              planos de ação e devolutivas à comunidade acadêmica.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Análise qualitativa</span>
+              <span class="module-tag">Leitura assistida por IA</span>
+              <span class="module-tag">Sínteses e insights</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Motor de análises com IA</span>
+              </div>
+              <div class="screenshot-inner">
+                <div class="screenshot-placeholder-text">
+                  <img src="img/6.png" alt="Motor de análises com IA e leitura de comentários" style="width:100%; margin-top:8px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section closing fade-up">
+    <div class="section-narrow">
+        <div class="section-kicker">Encerramento</div>
+        <h2 class="section-title">O papel estratégico do FMP Insights na evolução institucional</h2>
+
+        <p class="closing-main">
+        O FMP Insights nasce como uma plataforma estruturante para consolidar informações essenciais ao
+        desenvolvimento acadêmico e administrativo da Fundação Escola Superior do Ministério Público.
+        Ao reunir avaliações, indicadores e análises qualificadas em um único ambiente, o sistema fortalece
+        a cultura de dados, amplia a transparência e apoia processos decisórios em todos os níveis da instituição.
+        </p>
+
+        <ul class="closing-list">
+        <li>Contribui para a melhoria contínua da experiência acadêmica, oferecendo dados precisos e de fácil compreensão.</li>
+        <li>Fortalece o compromisso institucional com a qualidade, fornecendo insumos estratégicos para CPA, coordenações e direção.</li>
+        <li>Amplia a capacidade de planejamento ao disponibilizar indicadores consolidados e análises históricas de desempenho.</li>
+        <li>Promove integração, padronização e governança sobre os processos avaliativos da FMP.</li>
+        </ul>
+
+        <div class="closing-pill">
+        <span>🏛️</span>
+        <span>FMP Insights: inovação, precisão e governança a serviço da missão institucional.</span>
+        </div>
+
+        <p style="margin-top: 28px; font-size:.85rem; color:#3b2c1c; opacity:.85;">
+        Diretoria Executiva | Fundação Escola Superior do Ministério Público
+        </p>
+    </div>
+  </section>
+</div>
+
+<div class="image-modal-overlay" id="image-modal">
+  <div class="image-modal-content">
+    <span class="image-modal-close" id="image-modal-close">×</span>
+    <img src="" alt="" id="image-modal-img">
+  </div>
+</div>
+
+<script>
+  (function() {
+    const observed = document.querySelectorAll('.fade-up');
+    if (!('IntersectionObserver' in window)) {
+      observed.forEach(el => el.classList.add('visible'));
+    } else {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.18 });
+      observed.forEach(el => observer.observe(el));
+    }
+
+    const modalOverlay = document.getElementById('image-modal');
+    const modalImg = document.getElementById('image-modal-img');
+    const modalClose = document.getElementById('image-modal-close');
+    const screenshots = document.querySelectorAll('.screenshot-inner img');
+
+    screenshots.forEach(img => {
+      img.addEventListener('click', function() {
+        modalImg.src = this.src;
+        modalImg.alt = this.alt || '';
+        modalOverlay.classList.add('open');
+      });
+    });
+
+    modalClose.addEventListener('click', function() {
+      modalOverlay.classList.remove('open');
+      modalImg.src = '';
+      modalImg.alt = '';
+    });
+
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('open');
+        modalImg.src = '';
+        modalImg.alt = '';
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+        modalOverlay.classList.remove('open');
+        modalImg.src = '';
+        modalImg.alt = '';
+      }
+    });
+  })();
+</script>
+</body>
+</html>

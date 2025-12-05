@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Júri Simulado – Detalhamento do Projeto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --wine-dark: #731f1f;
+      --wine: #8c2626;
+      --sand: #F2DFBB;
+      --light: #ffffff;
+      --text-dark: #1f1f1f;
+      --muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--light);
+      color: var(--text-dark);
+    }
+
+    .page-root {
+      min-height: 100vh;
+      background: #f9fafb;
+    }
+
+    .section {
+      padding: 72px min(9vw, 120px);
+    }
+
+    .section-narrow {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 90vh;
+      padding: 80px min(9vw, 120px) 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(140,38,38,0.84), rgba(115,31,31,0.9)),
+        url('background-juri.jpg') center/cover no-repeat;
+      color: var(--light);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+      max-width: 1180px;
+      width: 100%;
+    }
+
+    .hero-logo {
+      height: 52px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35));
+    }
+
+    .hero-kicker {
+      font-size: .8rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .9;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 3.2vw, 3.1rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin: 0 0 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.02rem;
+      max-width: 520px;
+      opacity: .94;
+      margin: 0 0 24px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-tag {
+      font-size: .8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,223,187,0.6);
+      background: rgba(15,23,42,0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      padding: 20px 20px 18px;
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(242,223,187,0.32);
+      box-shadow: 0 20px 55px rgba(0,0,0,0.55);
+    }
+
+    .hero-card-title {
+      font-size: .85rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .85;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-metrics {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: .85rem;
+      opacity: .92;
+      flex-wrap: wrap;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(248,250,252,0.25);
+      font-size: .78rem;
+    }
+
+    .section-kicker {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--wine);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 300;
+      margin: 0 0 10px;
+    }
+
+    .section-subtitle {
+      font-size: .95rem;
+      color: var(--muted);
+      margin: 0 0 26px;
+      max-width: 620px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: .8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .feature-card {
+      padding: 14px 14px 13px;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.07);
+      font-size: .9rem;
+    }
+
+    .feature-label {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--wine-dark);
+      margin-bottom: 4px;
+    }
+
+    .feature-title {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .feature-text {
+      font-size: .88rem;
+      color: #4b5563;
+    }
+
+    .architecture-strip {
+      margin-top: 28px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(140,38,38,0.04), rgba(115,31,31,0.08));
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      font-size: .88rem;
+    }
+
+    .arch-block-title {
+      font-size: .84rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--wine-dark);
+      margin-bottom: 6px;
+    }
+
+    .arch-block-text {
+      color: #374151;
+    }
+
+    .modules-section {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .modules-header {
+      margin-bottom: 28px;
+    }
+
+    .module-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .module {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .module.reverse {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.15fr);
+    }
+
+    .module.reverse .module-text {
+      order: 2;
+    }
+
+    .module.reverse .module-visual {
+      order: 1;
+    }
+
+    .module-kicker {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--wine);
+      margin-bottom: 6px;
+    }
+
+    .module-title {
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin: 0 0 8px;
+    }
+
+    .module-text p {
+      margin: 0 0 10px;
+      font-size: .93rem;
+      color: #374151;
+    }
+
+    .module-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .module-tag {
+      font-size: .78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .screenshot-frame {
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, #e5e7eb 0, #d1d5db 45%, #9ca3af 100%);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.18);
+      padding: 14px 14px 10px;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screenshot-chrome {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: .78rem;
+      color: #374151;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #ef4444;
+    }
+
+    .dot.dot-yellow {
+      background: #f59e0b;
+    }
+
+    .dot.dot-green {
+      background: #22c55e;
+    }
+
+    .screenshot-inner {
+      flex: 1;
+      border-radius: 12px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screenshot-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .closing {
+      background: var(--sand);
+      border-top: 1px solid rgba(148,163,184,0.35);
+    }
+
+    .closing-main {
+      font-size: .95rem;
+      color: #3b2c1c;
+      margin-bottom: 16px;
+    }
+
+    .closing-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      font-size: .9rem;
+      color: #3b2c1c;
+    }
+
+    .closing-list li {
+      margin-bottom: 6px;
+    }
+
+    .closing-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(115,31,31,0.32);
+      font-size: .8rem;
+      color: #3b2c1c;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .image-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .image-modal-overlay.open {
+      display: flex;
+    }
+
+    .image-modal-content {
+      max-width: 96vw;
+      max-height: 92vh;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+    }
+
+    .image-modal-content img {
+      display: block;
+      max-width: 100%;
+      max-height: 92vh;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(248,250,252,0.6);
+      background: rgba(15,23,42,0.7);
+      color: #f9fafb;
+      font-size: 16px;
+      line-height: 26px;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 72px;
+      }
+
+      .hero-card {
+        margin-top: 10px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .architecture-strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .module,
+      .module.reverse {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .module-text,
+      .module-visual {
+        order: unset !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .section,
+      .hero {
+        padding: 64px 20px;
+      }
+
+      .feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page-root">
+
+  <section class="hero fade-up" style="position:relative;">
+
+    <a href="index.html"
+       style="
+         position:absolute;
+         top:24px;
+         left:24px;
+         padding:8px 14px;
+         font-size:.82rem;
+         text-decoration:none;
+         color:#fff;
+         background:rgba(0,0,0,0.35);
+         border:1px solid rgba(255,255,255,0.32);
+         border-radius:10px;
+         backdrop-filter:blur(6px);
+         z-index:50;
+         transition:.2s ease;
+       "
+       onmouseover="this.style.background='rgba(0,0,0,0.55)'"
+       onmouseout="this.style.background='rgba(0,0,0,0.35)'">
+       ← Voltar ao início
+    </a>
+
+    <div class="hero-grid">
+      <div>
+        <img src="logo.svg" alt="Logo FMP" class="hero-logo">
+        <div class="hero-kicker">Plataforma de júris simulados e votação digital</div>
+        <h1 class="hero-title">Júri Simulado FMP</h1>
+        <p class="hero-subtitle">
+          Sistema que organiza, registra e projeta júris simulados, com votação digital em tempo real
+          e painéis de apuração, fortalecendo a formação prática em Direito na Fundação Escola Superior
+          do Ministério Público.
+        </p>
+        <div class="hero-tags">
+          <span class="hero-tag">Experiência prática em Direito</span>
+          <span class="hero-tag">Votação em tempo real</span>
+          <span class="hero-tag">Painel projetável</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="hero-card">
+          <div class="hero-card-title">Visão executiva</div>
+          <p style="font-size:.9rem; margin:0 0 8px;">
+            Esta página apresenta os principais módulos do Júri Simulado, com exemplos de telas e
+            funcionalidades que apoiam docentes e estudantes na realização de sessões mais dinâmicas,
+            organizadas e transparentes.
+          </p>
+          <div class="hero-card-metrics">
+            <span class="metric-pill">Votação anônima e segura</span>
+            <span class="metric-pill">Apuração instantânea dos resultados</span>
+            <span class="metric-pill">Sessões por turma, caso e período</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <div class="section-narrow">
+      <div class="section-kicker">Contexto do projeto</div>
+      <h2 class="section-title">Simulações mais realistas, organizadas e transparentes</h2>
+      <p class="section-subtitle">
+        O Júri Simulado FMP foi desenvolvido para apoiar atividades práticas da área jurídica, oferecendo
+        uma estrutura digital para organizar casos, registrar votos do público e projetar os resultados
+        em tempo real durante as sessões.
+      </p>
+
+      <p style="font-size:.94rem; color:#374151; margin-bottom:12px;">
+        A solução substitui controles manuais, planilhas dispersas e contagens improvisadas por um
+        ambiente único, preparado para sessões presenciais ou híbridas, em que estudantes, docentes
+        e público participam de forma intuitiva e segura.
+      </p>
+
+      <div class="pill-row">
+        <span class="pill">Apoio direto às práticas jurídicas</span>
+        <span class="pill">Organização por casos e sessões</span>
+        <span class="pill">Votação pelo público em seus dispositivos</span>
+        <span class="pill">Resultados prontos para discussão pedagógica</span>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-label">Momento 01</div>
+          <div class="feature-title">Preparação do caso</div>
+          <div class="feature-text">
+            Cadastro de júris, casos, enunciados e quesitos, com definição da forma de votação
+            e da estrutura de participação.
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label">Momento 02</div>
+          <div class="feature-title">Sessão de julgamento</div>
+          <div class="feature-text">
+            Participantes acessam a votação digital, enquanto o painel de apuração fica pronto
+            para projeção em sala ou auditório.
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label">Momento 03</div>
+          <div class="feature-title">Apuração e devolutiva</div>
+          <div class="feature-text">
+            Resultado apresentado em tempo real, com possibilidade de debate, análise crítica
+            e registro dos principais insights da atividade.
+          </div>
+        </div>
+      </div>
+
+      <div class="architecture-strip">
+        <div>
+          <div class="arch-block-title">Públicos atendidos</div>
+          <div class="arch-block-text">
+            Estudantes, docentes, coordenações de curso e público convidado, que encontram na
+            ferramenta um apoio direto à experiência didática.
+          </div>
+        </div>
+        <div>
+          <div class="arch-block-title">Formato de uso</div>
+          <div class="arch-block-text">
+            Sessões presenciais ou híbridas, com painel projetado e votação acessada
+            em celulares, notebooks ou dispositivos disponibilizados pela instituição.
+          </div>
+        </div>
+        <div>
+          <div class="arch-block-title">Resultados</div>
+          <div class="arch-block-text">
+            Júris mais organizados, registro de decisões, possibilidade de comparações entre turmas
+            e turmas, e fortalecimento da prática jurídica no ambiente acadêmico.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section modules-section fade-up">
+    <div class="section-narrow">
+      <div class="modules-header">
+        <div class="section-kicker">Módulos principais</div>
+        <h2 class="section-title">Detalhamento por módulo</h2>
+        <p class="section-subtitle">
+          A seguir, os módulos do Júri Simulado FMP são apresentados com espaço para capturas de tela
+          e breve descrição das principais funcionalidades de cada um.
+        </p>
+      </div>
+
+      <div class="module-list">
+
+        <div class="module">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 01</div>
+            <h3 class="module-title">Painel de apuração em tempo real</h3>
+            <p>
+              Painel visual preparado para projeção em sala ou auditório, exibindo a evolução da votação
+              e o resultado final de forma clara e objetiva.
+            </p>
+            <p>
+              Permite acompanhar o número de votos, percentuais por alternativa e outros destaques relevantes
+              para discussão em plenário.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Apuração instantânea</span>
+              <span class="module-tag">Modo apresentação</span>
+              <span class="module-tag">Visualização em tempo real</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Painel de apuração – Júri Simulado</span>
+              </div>
+              <div class="screenshot-inner">
+                <img src="img/juri-1.png" alt="Painel de apuração em tempo real do Júri Simulado FMP">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reverse">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 02</div>
+            <h3 class="module-title">Tela de votação pelo público</h3>
+            <p>
+              Interface simples e responsiva para que participantes possam registrar seus votos
+              diretamente de seus dispositivos, com poucos cliques.
+            </p>
+            <p>
+              Garante sigilo do voto e facilita a participação de um número maior de pessoas,
+              sem filas físicas ou coleta manual.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Votação digital</span>
+              <span class="module-tag">Interface responsiva</span>
+              <span class="module-tag">Participação ampliada</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Tela de votação do público</span>
+              </div>
+              <div class="screenshot-inner">
+                <img src="img/juri-2.png" alt="Tela de votação digital do público no Júri Simulado FMP">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 03</div>
+            <h3 class="module-title">Cadastro de casos, enunciados e quesitos</h3>
+            <p>
+              Área administrativa para criação e edição de júris, com definição do caso, resumo,
+              partes envolvidas e quesitos que serão apresentados ao público.
+            </p>
+            <p>
+              Permite reutilizar estruturas de casos, registrar variações por turma e manter
+              um histórico de temas trabalhados ao longo dos semestres.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Gestão de casos</span>
+              <span class="module-tag">Quesitos configuráveis</span>
+              <span class="module-tag">Histórico de sessões</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Cadastro de casos e quesitos</span>
+              </div>
+              <div class="screenshot-inner">
+                <img src="img/juri-3.png" alt="Tela de cadastro de casos e quesitos do Júri Simulado FMP">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reverse">
+          <div class="module-text">
+            <div class="module-kicker">Módulo 04</div>
+            <h3 class="module-title">Organização de sessões e turmas</h3>
+            <p>
+              Módulo de organização das sessões, com associação de casos às turmas, datas, horários
+              e docentes responsáveis.
+            </p>
+            <p>
+              Facilita o planejamento das atividades, o registro de quais turmas participaram de cada júri
+              e o acompanhamento do uso da ferramenta ao longo dos períodos letivos.
+            </p>
+            <div class="module-tags">
+              <span class="module-tag">Sessões por turma</span>
+              <span class="module-tag">Agenda de júris</span>
+              <span class="module-tag">Acompanhamento de uso</span>
+            </div>
+          </div>
+          <div class="module-visual">
+            <div class="screenshot-frame">
+              <div class="screenshot-chrome">
+                <span class="dot"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span>Organização de sessões e turmas</span>
+              </div>
+              <div class="screenshot-inner">
+                <img src="img/juri-4.png" alt="Organização de sessões e turmas no Júri Simulado FMP">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section closing fade-up">
+    <div class="section-narrow">
+      <div class="section-kicker">Encerramento</div>
+      <h2 class="section-title">Formação prática alinhada à missão institucional</h2>
+      <p class="closing-main">
+        O Júri Simulado FMP reforça o compromisso da instituição com a formação prática de excelência,
+        oferecendo uma ferramenta que aproxima a experiência acadêmica das dinâmicas reais de julgamento,
+        participação do público e tomada de decisão.
+      </p>
+      <ul class="closing-list">
+        <li>Fortalece o protagonismo estudantil em atividades de argumentação, defesa e acusação.</li>
+        <li>Contribui para a organização e a transparência das sessões, com registro estruturado dos resultados.</li>
+        <li>Amplia as possibilidades didáticas, permitindo a realização de júris com diferentes recortes, turmas e contextos.</li>
+        <li>Integra-se ao conjunto de soluções tecnológicas desenvolvidas pela Diretoria Executiva, voltadas à inovação na experiência acadêmica.</li>
+      </ul>
+      <div class="closing-pill">
+        <span>⚖️</span>
+        <span>Júri Simulado FMP: tecnologia apoiando a vivência do Direito em ambiente acadêmico.</span>
+      </div>
+      <p style="margin-top: 28px; font-size:.85rem; color:#3b2c1c; opacity:.85;">
+        Diretoria Executiva | Fundação Escola Superior do Ministério Público
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<div class="image-modal-overlay" id="image-modal">
+  <div class="image-modal-content">
+    <span class="image-modal-close" id="image-modal-close">×</span>
+    <img src="" alt="" id="image-modal-img">
+  </div>
+</div>
+
+<script>
+  (function() {
+    const observed = document.querySelectorAll('.fade-up');
+    if (!('IntersectionObserver' in window)) {
+      observed.forEach(el => el.classList.add('visible'));
+    } else {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.18 });
+      observed.forEach(el => observer.observe(el));
+    }
+
+    const modalOverlay = document.getElementById('image-modal');
+    const modalImg = document.getElementById('image-modal-img');
+    const modalClose = document.getElementById('image-modal-close');
+    const screenshots = document.querySelectorAll('.screenshot-inner img');
+
+    screenshots.forEach(img => {
+      img.addEventListener('click', function() {
+        modalImg.src = this.src;
+        modalImg.alt = this.alt || '';
+        modalOverlay.classList.add('open');
+      });
+    });
+
+    modalClose.addEventListener('click', function() {
+      modalOverlay.classList.remove('open');
+      modalImg.src = '';
+      modalImg.alt = '';
+    });
+
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('open');
+        modalImg.src = '';
+        modalImg.alt = '';
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+        modalOverlay.classList.remove('open');
+        modalImg.src = '';
+        modalImg.alt = '';
+      }
+    });
+  })();
+</script>
+</body>
+</html>
